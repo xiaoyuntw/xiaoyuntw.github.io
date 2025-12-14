@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    background-color: #012422;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    right: 50px;
+}
+
+#snnstarter {
+    color: white;
+    background-color: #117766;
+    padding: 10px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+#lol {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+#lol:checked {
+    
+    display: none;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+#lol:checked + #snnstarter{
+    display: none;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.switch {
+    color: white;
+    background-color: #117766;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+
+.slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 100px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+input:checked + .slider {
+  background-color: black;
+}
+
+.visualize {
+    height: 1000px;
+    width: 1000px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow:unset;
+}
+
+.neuron {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid;
+    background-color: #0d8f79;
+}
+
+.net {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+}

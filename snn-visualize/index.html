@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module">
+        import p from './main.js'
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            let snnstarter = document.getElementById('snnstarter');
+                p.createGraphIn(document.querySelector('.visualize'))
+                p.sim(document.querySelector('.net'))
+
+            let lastTime = performance.now()
+            let accumulator = 0
+
+            function frame(now) {
+                const delta = now - lastTime
+                lastTime = now
+
+                accumulator += delta
+
+
+                while (accumulator >= 1) {
+                    p.tick(1)   // 永遠是 1ms
+                    accumulator = 0
+                }
+
+                requestAnimationFrame(frame)
+            }
+
+
+            snnstarter.addEventListener('click', () => {
+                requestAnimationFrame(frame)
+            })
+            
+        })
+
+    </script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="visualize">
+        <canvas class="net" width="1000" height="1000" style="border:0px solid #000;"></canvas>
+    </div>
+    <div id="panel">
+        <label>
+            <input id="lol" type="checkbox"></input>
+            <div id="snnstarter">Start</div>
+        </label>
+        
+        <label class="switch">
+            <input id="toggleauto" type="checkbox"></input>
+            <span class="slider">Auto</span>
+        </label>
+    </div>
+</body>
+</html>
