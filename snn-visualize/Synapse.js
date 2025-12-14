@@ -28,7 +28,7 @@ export class Synapse {
             return;
         let w_change = (this.postTrace - this.preTrace) * 0.01 * this.ei;
         let newWeight = this.weight + w_change;
-        this.weight = this.weight * newWeight <= 0 ? 0 : Math.abs(newWeight) > 1 ? this.ei : newWeight;
+        this.weight = this.ei * newWeight <= 0 ? 0 : Math.abs(newWeight) > 1 ? this.ei : newWeight;
     }
 }
 //# sourceMappingURL=Synapse.js.map
