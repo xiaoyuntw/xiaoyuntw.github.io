@@ -6,7 +6,7 @@
 
 .test {
   background: linear-gradient(#55ffff80, #ff88aa80);
-  width: 100dvw;
+  width: 100vw;
 }
 
 .navbar {
@@ -15,4 +15,87 @@
   position: fixed; /* Set the navbar to fixed position */
   top: 0; /* Position the navbar at the top of the page */
   width: 100%; /* Full width */
+}
+
+#projects-area {
+  background-color: #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 2vw;
+  height: 450px;
+}
+
+.title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30pt;
+  margin: 10px;
+}
+
+#project-cards {
+  margin: 20px; 
+}
+
+.project-card {
+  background-color: #eee;
+  height: 350px;
+  width: 300px;
+  box-shadow: #888 2px 2px 5px 1px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  transition: ease 0.2s;
+}
+
+.project-card:hover {
+  box-shadow: #888 2px 2px 7px 3px;
+}
+
+.card-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20pt;
+  height: 20%;
+  padding: 20px;
+}
+
+.card-description {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12pt;
+  height: 65%;
+  padding: 10px;
+  color: #555;
+  line-height: 25pt;
+  word-wrap: break-word;
+  border-left: 5px solid #ddd;
+  border-right: 5px solid #ddd;
+}
+
+.card-links {
+  height: 15%;
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+}
+
+.card-link-btn {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14pt;
+  height: 100%;
+  width: 80pt;
+  background-color: #337755;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: ease 0.2s;
+  text-decoration: none;
+  color: white;
+}
+
+.card-link-btn:hover{
+  background-color: #064831;
 }
