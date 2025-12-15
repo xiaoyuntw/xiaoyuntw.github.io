@@ -63,28 +63,36 @@ class Pool {
     updateCanvas() {
         let ctx = this.canvas.getContext('2d');
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        for (const s of this.synapses) {
-            if (this.canvas == null)
-                break;
-            this.synapses.forEach(s => {
-                if (s.preTrace < 0.3)
-                    return;
-                let vp = this.canvas.getBoundingClientRect();
-                let n1 = s.pre.element.getBoundingClientRect();
-                let n2 = s.post.element.getBoundingClientRect();
-                ctx.beginPath(); // Start a new path
-                ctx.moveTo(n1.left - vp.left + 10, n1.top - vp.top + 10); // Move the "pen" to the start point
-                ctx.lineTo(n2.left - vp.left + 10, n2.top - vp.top + 10 + (s.weight < 0 ? 10 : -10)); // Draw a line to the end point
-                if (s.weight < 0)
-                    ctx.strokeStyle = `rgba(255, 50, 150, ${(-1 * s.weight * (Math.pow(s.preTrace, 4)))})`;
-                else
-                    ctx.strokeStyle = `rgba(50, 255, 150, ${(s.weight * (Math.pow(s.preTrace, 4)))})`;
-                // console.log(s.weight+0.1)
-                ctx.lineWidth = 1; // Set the line width
-                ctx.stroke(); // Render the line
-            });
-        }
+        if (this.canvas == null)
+            return;
+        this.synapses.forEach(s => {
+            if (s.preTrace < 0.3)
+                return;
+            let vp = this.canvas.getBoundingClientRect();
+            let n1 = s.pre.element.getBoundingClientRect();
+            let n2 = s.post.element.getBoundingClientRect();
+            ctx.beginPath(); // Start a new path
+            ctx.moveTo(n1.left - vp.left + 10, n1.top - vp.top + 10); // Move the "pen" to the start point
+            ctx.lineTo(n2.left - vp.left + 10, n2.top - vp.top + 10 + (s.weight < 0 ? 10 : -10)); // Draw a line to the end point
+            if (s.weight < 0) {
+                ctx.strokeStyle = `rgba(255, 50, 150, ${(-1 * s.weight * s.preTrace)})`;
+                ctx.fillStyle = `rgba(255, 50, 150, ${(-1 * s.weight * s.preTrace)})`;
+            }
+            else {
+                ctx.strokeStyle = `rgba(50, 255, 150, ${(s.weight * s.preTrace)})`;
+                ctx.strokeStyle = `rgba(50, 255, 150, ${(s.weight * s.preTrace)})`;
+            }
+            // console.log(s.weight+0.1)
+            ctx.lineWidth = 2; // Set the line width
+            ctx.stroke(); // Render the line
+            ctx.beginPath();
+            ctx.arc(n1.left - vp.left + 10, n1.top - vp.top + 10, 14, 0, 2 * Math.PI);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(n2.left - vp.left + 10, n2.top - vp.top + 10, 6, 0, 2 * Math.PI);
+            ctx.fill();
+        });
     }
 }
-export default new Pool(160);
+export default new Pool(512);
 //# sourceMappingURL=main.js.map
