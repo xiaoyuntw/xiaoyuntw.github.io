@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module">
+        import { DistanceTopolPool } from "./dist/DistanceTopolPool.js"
+        const size = 2048
+        const p = new DistanceTopolPool(size)
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.querySelector('.net')
+            const ctx = canvas.getContext('2d')
+            const map = document.querySelector('.visualize')
+
+            // for (const n of p.neurons) {
+            //     const element = document.createElement('div')
+            //     element.className = 'neuron'
+            //     map.appendChild(element)
+                
+            //     // n.addEventListener('change', event => {
+            //     //     element.style.opacity = Math.min(1, event.detail.v / event.detail.vth)
+            //     // })
+            //     element.style.left = Math.floor(n.x * map.clientWidth) + 'px'
+            //     element.style.top = Math.floor(n.y * map.clientHeight) + 'px'
+            //     n_elements.push(element)
+            // }
+            const mp = map.getBoundingClientRect();
+            const cp = canvas.getBoundingClientRect();
+            p.rules.push((pre, post) => {
+                const d_x = (pre.x - post.x)
+                const d_y = (pre.y - post.y)
+                const d = (d_x**2 + d_y**2) ** (1/2)
+                const r = 3 * 1.41 * (1 / (size ** 0.5))
+                const k = 5
+                // Math.log(1+d*5)/Math.log(1+5)
+                return d <= r
+                // return Math.random() < Math.exp(-d / r)
+            })
+            let k = 64
+            // p.rules.push((pre, post) => Math.random() < k / (size -1))
+            console.log("rule set")
+            p.regenerate()
+            console.log("generated")
+
+            for (const s of p.synapses) {
+                const n1 = s.pre
+                const n2 = s.post
+                ctx.beginPath() // Start a new path
+                ctx.moveTo(
+                    s.pre.x * mp.width - cp.left + mp.left,
+                    s.pre.y * mp.height - cp.top + mp.top); // Move the "pen" to the start point
+                ctx.lineTo(
+                    s.post.x * mp.width - cp.left + mp.left,
+                    s.post.y * mp.height - cp.top + mp.top); // Draw a line to the end point
+                ctx.strokeStyle = `rgba(255, 255, 255, ${s.weight}`
+                ctx.stroke(); // Render the line
+            }
+            function frame(now) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (const s of p.synapses) {
+                    if (s.preTrace <= 0) continue
+                    const n1 = s.pre
+                    const n2 = s.post
+                    ctx.beginPath() // Start a new path
+                    ctx.moveTo(
+                        s.pre.x * mp.width - cp.left + mp.left,
+                        s.pre.y * mp.height - cp.top + mp.top); // Move the "pen" to the start point
+                    ctx.lineTo(
+                        s.post.x * mp.width - cp.left + mp.left,
+                        s.post.y * mp.height - cp.top + mp.top); // Draw a line to the end point
+                    if (s.pre.ie <= 0)
+                        ctx.strokeStyle = `rgba(255, 50, 100, ${s.weight * s.preTrace})`;
+                    else
+                        ctx.strokeStyle = `rgba(50, 255, 100, ${s.weight * s.preTrace})`;
+                    ctx.lineWidth = 1; // Set the line width
+                    ctx.stroke(); // Render the line
+
+                }
+                requestAnimationFrame(frame)
+            }
+            
+            document.getElementById("start").addEventListener('click', () => {
+                document.querySelector("label[for=start]").style.display = 'none'
+                setInterval(() => {p.tick()}, 0)
+                requestAnimationFrame(frame)
+            })
+
+        })
+
+    </script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="visualize">
+        <canvas class="net" width="3000" height="3000" style="border:0px solid #000;"></canvas>
+    </div>
+    <div id="panel">
+        <label for="start">
+            <input id="start" type="checkbox"></input>
+            <div id="snnstarter">Start</div>
+        </label>
+        <!-- <label for="export">
+            <input id="export" type="checkbox"></input>
+            <div id="snnstarter">export</div>
+        </label>
+        <label for="import">
+            <input id="import" type="file"></input>
+            <div id="snnstarter">import</div>
+        </label> -->
+    </div>
+</body>
+</html>
