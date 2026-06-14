@@ -107,6 +107,6 @@
   background-color: #1e1e1e;
 }
 
-.card-link-btn[disabled:hover{
+.card-link-btn[disabled]:hover{
   background-color: #1e1e1e;
 }
