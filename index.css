@@ -34,6 +34,8 @@
 }
 
 #project-cards {
+  display: flex;
+  flex-direction: row;
   margin: 20px; 
 }
 
@@ -43,6 +45,7 @@
   width: 300px;
   box-shadow: #888 2px 2px 5px 1px;
   padding: 15px;
+  margin: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -98,4 +101,12 @@
 
 .card-link-btn:hover{
   background-color: #064831;
+}
+
+.card-link-btn[disabled]{
+  background-color: #1e1e1e;
+}
+
+.card-link-btn[disabled]:hover{
+  background-color: #1e1e1e;
 }
