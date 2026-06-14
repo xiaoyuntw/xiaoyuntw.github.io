@@ -3,7 +3,7 @@ export class DistanceN3 extends EventTarget {
     v = 0;
     vth = 255;
     sleepCounter = 0;
-    ie = Math.random() < 0.2 ? -1 : 1;
+    ie = Math.random() < 0.15 ? -1 : 1;
     builtin_bus = [];
     x = Math.random();
     y = Math.random();
